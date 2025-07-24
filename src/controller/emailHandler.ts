@@ -12,7 +12,7 @@ export const sendEmailToSingleUser = async (input: SendSingleEmailDTO): Promise<
         return {
             success: true,
             statusCode: 200,
-            message: 'Email sent successfully'
+            message: responseMessage.EMAIL_SENT
         }
     } catch (error) {
         const errMessage = error instanceof Error ? error.message : responseMessage.INTERNAL_SERVER_ERROR
@@ -34,7 +34,7 @@ export const sendEmailToMultipleUsers = async (input: SendMultipleEmailDTO): Pro
         return {
             success: true,
             statusCode: 200,
-            message: 'Email sent to multiple users successfully'
+            message: responseMessage.EMAIL_SENT_TO_MULTIPLE_USERS
         }
     } catch (error) {
         const errMessage = error instanceof Error ? error.message : responseMessage.INTERNAL_SERVER_ERROR
@@ -59,7 +59,7 @@ export const sendBulkEmailsToGroups = async (input: SendBulkGroupsEmailDTO): Pro
             results.push({
                 success: true,
                 statusCode: 200,
-                message: `Email sent to ${group.to.join(', ')}`
+                message: responseMessage.EMAIL_SENT_TO_GROUPS
             })
         } catch (error) {
             const errMessage = error instanceof Error ? error.message : responseMessage.INTERNAL_SERVER_ERROR
