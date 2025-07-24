@@ -1,6 +1,7 @@
 import express, { Application, NextFunction, Request, Response } from 'express'
 import path from 'path'
 import publicRoutes from './routes/publicRoutes'
+import protectedRoutes from './routes/protectedRoutes'
 import { HttpError } from './libs/utils/helper'
 import { environment, responseMessage } from './libs/utils/constants'
 import { GlobalErrorHandler } from './middleware'
@@ -26,6 +27,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/api/v1', publicRoutes)
 
 // protected routes
+app.use('/api/v1', protectedRoutes)
 
 // 404 hander
 app.use((req: Request, _: Response, next: NextFunction) => {
