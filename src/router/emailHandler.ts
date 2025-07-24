@@ -1,12 +1,10 @@
 import { Router, Request, Response, NextFunction } from 'express'
-import HttpResponse from '../libs/utils/helper/HttpResponse'
-import HttpError from '../libs/utils/helper/HttpError'
 import { sendEmailToSingleUser, sendEmailToMultipleUsers, sendBulkEmailsToGroups } from '../controller/emailHandler'
 import { SendSingleEmailDTO } from '../libs/utils/dto/Email/SendSingleEmailDTO'
 import { validateDTO } from '../libs/utils/helper/validateDto'
-import DtoError from '../libs/utils/helper/DtoError'
 import { SendMultipleEmailDTO } from '../libs/utils/dto/Email/SendMultipleEmailDTO'
 import { SendBulkGroupsEmailDTO } from '../libs/utils/dto/Email/SendBulkGroupsEmailDTO'
+import { DtoError, HttpError, HttpResponse } from '../libs/utils/helper'
 
 const router = Router()
 

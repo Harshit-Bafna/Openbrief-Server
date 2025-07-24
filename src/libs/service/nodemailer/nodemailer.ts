@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer'
-import { logger } from '../winston'
+import { logger, mailLogger } from '../winston'
 import { environment } from '../../utils/constants'
 import { EmailAttachment } from '../../utils/enums'
 
@@ -30,6 +30,13 @@ export const sendEmail = async (to: string[], subject: string, html: string, att
             attachments: attatchments
         })
 
+        mailLogger.info('EMAIL_SENT', {
+            meta: {
+                to: to.join(', '),
+                subject: subject,
+                attachments: attatchments.map((att) => att.filename).join(', ')
+            }
+        })
         return info
     } catch (error) {
         logger.error('EMAIL_SERVICE', {
