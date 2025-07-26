@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import express, { Application, NextFunction, Request, Response } from 'express'
 import path from 'path'
 import publicRoutes from './routes/publicRoutes'
@@ -7,6 +8,7 @@ import { environment, responseMessage } from './libs/utils/constants'
 import { GlobalErrorHandler } from './middleware'
 import cors from 'cors'
 import helmet from 'helmet'
+import cookieParser from 'cookie-parser'
 
 const app: Application = express()
 
@@ -22,6 +24,7 @@ app.use(
 app.use(express.json())
 app.use(express.static(path.join(__dirname, '../', 'public')))
 app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser())
 
 // public routes
 app.use('/api/v1', publicRoutes)
