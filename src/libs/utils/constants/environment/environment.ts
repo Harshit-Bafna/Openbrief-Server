@@ -19,6 +19,9 @@ export default {
     DB_PORT: process.env.DB_PORT || '5432',
     DB_SSL: process.env.DB_SSL === 'true' ? true : false,
 
+    // Resend
+    RESEND_API_KEY: (process.env.RESEND_API_KEY as string) || '',
+
     // Nodemailer
     SENDER_NAME: process.env.SENDER_NAME as string,
     SENDER_HOST: process.env.SENDER_HOST as string,

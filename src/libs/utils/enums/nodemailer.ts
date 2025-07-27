@@ -1,5 +1,6 @@
 export interface EmailAttachment {
     filename: string
-    path: string
-    cid?: string | undefined
+    path?: string
+    content?: Buffer | string
+    contentType?: string
 }

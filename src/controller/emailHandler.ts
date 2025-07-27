@@ -1,4 +1,4 @@
-import { sendEmail } from '../libs/service/nodemailer'
+import { sendEmail } from '../libs/service/resend'
 import { responseMessage } from '../libs/utils/constants'
 import { SendBulkGroupsEmailDTO, SendMultipleEmailDTO, SendSingleEmailDTO } from '../libs/utils/dto'
 import { ApiError } from '../libs/utils/helper'
