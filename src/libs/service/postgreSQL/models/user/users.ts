@@ -14,7 +14,7 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
     public isActive!: boolean
     public isVerified!: boolean
     public lastLoginAt?: Date
-    public roleDetails?: Role
+    public roleDetails!: Role
     public createdAt!: Date
     public updatedAt!: Date
     public deletedAt?: Date

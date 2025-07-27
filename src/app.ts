@@ -5,7 +5,7 @@ import publicRoutes from './routes/publicRoutes'
 import protectedRoutes from './routes/protectedRoutes'
 import { HttpError } from './libs/utils/helper'
 import { environment, responseMessage } from './libs/utils/constants'
-import { GlobalErrorHandler } from './middleware'
+import { authentication, GlobalErrorHandler } from './middleware'
 import cors from 'cors'
 import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
@@ -30,6 +30,7 @@ app.use(cookieParser())
 app.use('/api/v1', publicRoutes)
 
 // protected routes
+app.use(authentication)
 app.use('/api/v1', protectedRoutes)
 
 // 404 hander

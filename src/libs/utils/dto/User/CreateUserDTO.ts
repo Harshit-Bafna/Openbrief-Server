@@ -1,5 +1,5 @@
-import { IsString, IsOptional, IsNotEmpty, IsEmail, IsBoolean } from 'class-validator'
-import { responseMessage } from '../../constants'
+import { IsString, IsOptional, IsNotEmpty, IsEmail, IsBoolean, Matches } from 'class-validator'
+import { passwordRegex, responseMessage } from '../../constants'
 
 export class CreateUserDTO {
     @IsString({ message: responseMessage.INVALID_TYPE('name', 'string') })
@@ -12,6 +12,10 @@ export class CreateUserDTO {
 
     @IsNotEmpty({ message: responseMessage.REQUIRED_FIELD('password') })
     @IsString({ message: responseMessage.INVALID_TYPE('password', 'string') })
+    @Matches(passwordRegex, {
+        message:
+            'Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character ( !, @, #, $, _ )'
+    })
     password!: string
 
     @IsOptional()

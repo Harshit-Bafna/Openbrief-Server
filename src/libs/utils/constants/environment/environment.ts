@@ -32,5 +32,16 @@ export default {
     ACCESS_KEY: process.env.ACCESS_KEY as string,
     SECRET_ACCESS_KEY: process.env.SECRET_ACCESS_KEY as string,
     BUCKET_NAME: process.env.BUCKET_NAME as string,
-    SIGN_EXPIRY_TIME: process.env.SIGN_EXPIRY_TIME ? parseInt(process.env.SIGN_EXPIRY_TIME) : 3600
+    SIGN_EXPIRY_TIME: process.env.SIGN_EXPIRY_TIME ? parseInt(process.env.SIGN_EXPIRY_TIME) : 3600,
+
+    // JWT
+    ACCESS_TOKEN: {
+        SECRET: process.env.ACCESS_TOKEN_SECRET,
+        EXPIRY: 60 * 60 // 1 hour,
+    },
+    REFRESH_TOKEN: {
+        SECRET: process.env.REFRESH_TOKEN_SECRET,
+        EXPIRY: 60 * 60 * 24 * 1, // 1 days
+        RememberExpiry: 60 * 60 * 24 * 20 // 20 days
+    }
 }

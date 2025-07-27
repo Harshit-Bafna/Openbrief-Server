@@ -20,9 +20,9 @@ router.post('/send-single', async (req: Request, res: Response, next: NextFuncti
             return DtoError(next, req, requestValidation.status, requestValidation.errors)
         }
 
-        const result = await sendEmailToSingleUser(input)
-        if (!result.success) return HttpError(next, result.error, req, result.statusCode)
-        return HttpResponse(req, res, result.statusCode, result.message, result.data)
+        const { success, statusCode, error, message, data } = await sendEmailToSingleUser(input)
+        if (!success) return HttpError(next, error, req, statusCode)
+        return HttpResponse(req, res, statusCode, message, data)
     } catch (err) {
         return HttpError(next, err as Error, req, 500)
     }
@@ -43,9 +43,9 @@ router.post('/send-multiple', async (req: Request, res: Response, next: NextFunc
             return DtoError(next, req, requestValidation.status, requestValidation.errors)
         }
 
-        const result = await sendEmailToMultipleUsers(input)
-        if (!result.success) return HttpError(next, result.error, req, result.statusCode)
-        return HttpResponse(req, res, result.statusCode, result.message, result.data)
+        const { success, statusCode, error, message, data } = await sendEmailToMultipleUsers(input)
+        if (!success) return HttpError(next, error, req, statusCode)
+        return HttpResponse(req, res, statusCode, message, data)
     } catch (err) {
         return HttpError(next, err as Error, req, 500)
     }
@@ -66,9 +66,9 @@ router.post('/send-bulk-groups', async (req: Request, res: Response, next: NextF
             return DtoError(next, req, requestValidation.status, requestValidation.errors)
         }
 
-        const result = await sendBulkEmailsToGroups(input)
-        if (!result.success) return HttpError(next, result.error, req, result.statusCode)
-        return HttpResponse(req, res, result.statusCode, result.message, result.data)
+        const { success, statusCode, error, message, data } = await sendBulkEmailsToGroups(input)
+        if (!success) return HttpError(next, error, req, statusCode)
+        return HttpResponse(req, res, statusCode, message, data)
     } catch (err) {
         return HttpError(next, err as Error, req, 500)
     }
