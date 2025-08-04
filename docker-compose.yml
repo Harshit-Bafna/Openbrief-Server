@@ -6,6 +6,7 @@ services:
             context: .
             dockerfile: Dockerfile
             target: production
+        image: openbrief-app
         container_name: openbrief-app
         ports:
             - '8000:8000'
