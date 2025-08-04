@@ -1,0 +1,75 @@
+name: Build Pipeline
+
+on:
+    workflow_run:
+        workflows: ['Test Pipeline']
+        types:
+            - completed
+
+jobs:
+    build:
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+        runs-on: ubuntu-latest
+        environment: production
+
+        env:
+            NODE_ENV: production
+
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '22'
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Build Project (Compile TypeScript)
+              run: npm run build
+
+            - name: Log in to DockerHub
+              uses: docker/login-action@v3
+              with:
+                  username: ${{ secrets.DOCKER_USERNAME }}
+                  password: ${{ secrets.DOCKER_PASSWORD }}
+
+            - name: Build and Push Docker Image
+              uses: docker/build-push-action@v5
+              with:
+                  context: .
+                  file: Dockerfile
+                  push: true
+                  tags: ${{ secrets.DOCKER_USERNAME }}/myapp:${{ github.sha }}
+
+    migrate:
+        name: Run DB Migrations
+        needs: build
+        runs-on: ubuntu-latest
+        environment: production
+
+        env:
+            NODE_ENV: production
+            DB_USER: ${{ secrets.DB_USER }}
+            DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+            DB_NAME: ${{ secrets.DB_NAME }}
+            DB_HOST: ${{ secrets.DB_HOST }}
+            DB_PORT: ${{ secrets.DB_PORT }}
+            DB_SSL: ${{ secrets.DB_SSL }}
+
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '22'
+
+            - name: Install Dependencies
+              run: npm ci
+
+            - name: Run Database Migration
+              run: npm run migrate

@@ -6,7 +6,7 @@ FROM node:22-alpine AS builder
 # Set working directory
 WORKDIR /app
 
-# Install dependencies first (better caching)
+# Install dependencies
 COPY package*.json ./
 COPY tsconfig.json ./
 RUN npm install --frozen-lockfile
@@ -34,8 +34,8 @@ RUN npm install --omit=dev --ignore-scripts
 # Copy build output & required files
 COPY --from=builder /app/dist ./dist
 
-# Expose app port (adjust if needed, default Express is 3000)
-EXPOSE 3000
+# Expose app port 
+EXPOSE 8000
 
 # Set NODE_ENV to production
 ENV NODE_ENV=production

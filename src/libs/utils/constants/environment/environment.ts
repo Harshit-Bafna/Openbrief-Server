@@ -1,5 +1,7 @@
-import dotenvFlow from 'dotenv-flow'
-dotenvFlow.config()
+if (process.env.NODE_ENV !== 'production') {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-member-access
+    require('dotenv-flow').config()
+}
 
 export default {
     // General
